@@ -9,8 +9,8 @@
     <script src="https://code.jquery.com/jquery-3.3.0.js" integrity="sha256-TFWSuDJt6kS+huV+vVlyV1jM3dwGdeNWqezhTxXB/X8=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="../Css/Main.css"/>
-    <script src="../JS/alumnos.js"></script>
+    <link rel="stylesheet" href="Css/Main.css"/>
+    <script src="Js/Login.js"></script>
 </head>
     <body>
             <div class="container">
@@ -26,6 +26,72 @@
                      
                         <!-- Cuerpo-->
                     <div class="card-body mt-2 mb-2 border">
+      <!--...........................................................................-->
+                            <div id ="login" class="row mb-2 mt-2 justify-content-center ">   
+                                <div id="cajalogin" class="col-6 text-center border mt-2 mb-2 ">
+                                                     <i class="fas fa-user-graduate mt-2 mb-2"></i>
+                                                    <div class="form-group  mt-3">
+                                                            <label class="etiqueta"  for="DNI">Usuario:</label>
+                                                            <input class="form-control" id="Usuario" name="Usuario" placeholder="Usuario" type="text" value="" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label class="etiqueta" for="password">Contraseña:</label>
+                                                            <input class="form-control mb-5" name="Contraseña" id="Contraseña" value="" type="password" placeholder="*********" required>
+                                                    </div>
+                                                <button id="btniniciar" type="button" name="Iniciar" class="btn btn-sm btn-block btn-primary mt-2 " onclick="Login()"> Iniciar Sesion</button>
+                                                <button id="btnregis" type="button"  class="btn btn-sm btn-block btn-primary mt-2 mb-2 " data-toggle="modal" data-target="#ModalRegistro"> Registrarse</button>
+                                </div> 
+                            </div>  
+                            <!-- Modal -->
+                            <div class="modal fade" id="ModalRegistro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                                <div class="modal-header justify-content-center text-center">
+                                                    <i class="fas fa-user-plus"> </i>
+                                                    <h3 class="text-center " id="exampleModalLabel">  Nueva Cuenta</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body justify-content-center text-center">
+                                                                <div class="form-group">
+                                                                    <label for="Usuario">Nombre de Usuario:</label>
+                                                                    <input class="form-control"name="Usuario" id="nuevousuario" placeholder="Nombre de Usuario" type="text" value="" required>
+                                                                    <div class="invalid-feedback">complete el campo</div>
+                                                                </div>
+                                                            <div class="form-group">
+                                                                    <label for="Contraseña">Contraseña:</label>
+                                                                    <input class="form-control" name="Contraseña" id="nuevaContraseña" value="" type="password" placeholder="Contraseña" required>
+                                                                    <div class="invalid-feedback">complete el campo</div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                    <label for="Nombre">Nombre:</label>
+                                                                    <input class="form-control" name="Nombre" id="Nombre" value="" type="text" placeholder="Nombre" required>
+                                                                    <div class="invalid-feedback">complete el campo</div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                    <label for="Apellido">Apellido:</label>
+                                                                    <input class="form-control" name="Apellido" id="Apellido" value="" type="text" placeholder="Apellido" required>
+                                                                    <div class="invalid-feedback">complete el campo</div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                    <label for="Correo">Correo:</label>
+                                                                    <input class="form-control" name="Correo" id="Correo" value="" type="text" placeholder="Correo Electronico" required>
+                                                                    <div class="invalid-feedback">complete el campo</div>
+                                                            </div>
+                                                </div> 
+                                                <div class="modal-footer">
+                                                            <button type="button" class="btn btn-outline-danger btncerrar" data-dismiss="modal">cerrar</button>
+                                                            <button type="button" name="Registrarse" class="btn btn-outline-success botonguardar " onclick="nuevaCuenta()"><span class="glyphicon glyphicon-envelope"></span>Registrar</button>
+                                                </div>
+                                            
+                                    </div>
+                                </div>
+                            </div>
+                     
+
+
+<!--  ..............................................................................-->
 
                     </div>
                             <!-- Pie-->
