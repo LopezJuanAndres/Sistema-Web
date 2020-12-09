@@ -1,0 +1,61 @@
+ body{
+    background:linear-gradient(to right,rgb(186, 224, 219),rgb(147, 210, 235) );
+ }
+
+/* Encabezado*/
+div.card-header {
+ background-image: url(imagenes/2137.jpg);
+ background-repeat: no-repeat;
+ background-size: cover;
+ height: 400px;
+ 
+}
+
+div.jumbotron{
+    opacity: 0.7;
+    align-self: flex-end;
+}
+
+/* Pie de Pagina*/
+#ModalPresentacion .modal-content{
+    background:linear-gradient(to right,rgb(124, 202, 192),rgb(61, 138, 168) );
+}
+#ModalPresentacion .modal-content i{
+ font-size: 35px;
+}
+ 
+a.footer{
+    font-size: large;
+    font-style: normal;
+    color:black;
+}
+
+
+
+/*--------------------------------------------------------------------------------*/
+@media (max-width:800px){
+/* Encabezado*/ 
+div.card-header {
+    
+height: 10%;
+}
+div.jumbotron h1{
+    font-size: large;
+}
+
+
+}
+/*--------------------------------------------------------------------------------*/
+@media (max-width:500px){
+/* Encabezado*/   
+div.jumbotron h1{
+    font-size:medium;
+}
+
+
+
+
+}
+
+
+/*--------------------------------------------------------------------------------*/
