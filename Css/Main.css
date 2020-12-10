@@ -76,6 +76,17 @@ div.news-cards {
       color:rgb(238, 159, 69);
   }
 
+ /*Opciones de Usuarios*/
+ div.row i{
+   font-size: 25px;
+   color:black;
+ }
+
+
+
+
+
+
 /*--------------------------------------------------------------------------------*/
 @media (max-width:800px){
 /* Encabezado*/ 

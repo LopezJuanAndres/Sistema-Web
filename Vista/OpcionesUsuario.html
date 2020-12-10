@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="../Css/Main.css"/>
-    <script src="../JS/alumnos.js"></script>
+    <script src="../Js/usuarios.js"></script>
 </head>
     <body>
             <div class="container">
@@ -60,7 +60,32 @@
                      
                         <!-- Cuerpo-->
                     <div class="card-body mt-2 mb-2 border">
-
+                        <!--................................................................................-->
+                                  <!--Cuenta de usuario-->
+                                  <div class="row mr-2 ml-2 justify-content-center">
+                                    <div class="row col-7 mb-2">
+                                       <input class="form-control" type="text" name="Usuario" id="Usuario" placeholder="Usuario" >
+                                    </div>
+                                    <div class="row col-7 mb-2  ">
+                                         <input class="form-control col " type="password" name="Contraseña" id="Contraseña" placeholder="Contraseña" >
+                                             <i id="ojoabierto" class="fas fa-eye col-1 btn"></i>
+                                             <i id="ojocerrado" class="fas fa-eye-slash col-1 btn"></i>
+                                    </div> 
+                                    <div class="row col-7 mb-2">
+                                       <input class="form-control" type="text" name="Nombre" id="Nombre" placeholder="Nombre" >
+                                    </div>
+                                    <div class="row col-7 mb-2">
+                                       <input class="form-control" type="text" name="Apellido" id="Apellido" placeholder="Apellido" >
+                                    </div>
+                                    <div class="row col-7 mb-2">
+                                        <input class="form-control" type="text" name="Correo" id="Correo" placeholder="Correo" >
+                                    </div>
+                            </div>
+                            <div class="row  mr-2 ml-2 justify-content-center">
+                                     <div class="col-3">  <button class="form-control btn btn-outline-success" type="button" name="guardarUsuario" id="guardarUsuario" > Guardar Cambios </button></div>
+                                     <div class="col-4"><a class="btn btn-outline-danger col-8 " href="Menu.html">Salir</a> </div>
+                           </div>
+                        <!--......................................................................................-->
                     </div>
                             <!-- Pie-->
                     <div class="card-footer  text-center Text-dark justify-content-center">

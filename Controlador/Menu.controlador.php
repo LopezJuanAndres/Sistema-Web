@@ -10,6 +10,15 @@ if ($_POST){
         case "CERRARSESION":
             echo json_encode($Login->CerrarSesion());
          break;
+         case "MODIFICAR":         
+            $Usuario=$_POST['Usuario'];
+            $Contraseña=$_POST['Contraseña'];
+            $Nombre=$_POST['Nombre'];
+            $Apellido=$_POST['Apellido'];
+            $Correo=$_POST['Correo'];         
+            $respuesta=$Login->Modificar($Usuario,$Contraseña,$Nombre,$Apellido,$Correo);
+            echo json_encode($respuesta);
+         break;
     }
 }
 

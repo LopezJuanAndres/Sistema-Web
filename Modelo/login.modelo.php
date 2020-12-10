@@ -50,16 +50,17 @@ session_start();
                     }
             }
            
-         public function Modificar($IdUsuario,$Usuario,$Contraseña,$Nombre,$Apellido,$Correo){
+         public function Modificar($Usuario,$Contraseña,$Nombre,$Apellido,$Correo){
+            $IdProfesor=$_SESSION['IdProfesor'];
             $sql="UPDATE `login` SET Usuario=:miUsu,Contraseña=:miCon,Nombre=:miNom, 
              Apellido =:miApe,Correo=:miCor WHERE ID=:miId";
             $conexion=new Conexion();
             $stmt=$conexion->prepare( $sql);
-            $stmt->bindValue(":miNom",$Usuario,PDO::PARAM_STR);
-            $stmt->bindValue(":miApe",$Contraseña,PDO::PARAM_STR);
-            $stmt->bindValue(":miDoc",$Nombre,PDO::PARAM_STR);
-            $stmt->bindValue(":miTel",$Apellido,PDO::PARAM_STR);
-            $stmt->bindValue(":miDir",$Correo,PDO::PARAM_STR);
+            $stmt->bindValue(":miUsu",$Usuario,PDO::PARAM_STR);
+            $stmt->bindValue(":miCon",$Contraseña,PDO::PARAM_STR);
+            $stmt->bindValue(":miNom",$Nombre,PDO::PARAM_STR);
+            $stmt->bindValue(":miApe",$Apellido,PDO::PARAM_STR);
+            $stmt->bindValue(":miCor",$Correo,PDO::PARAM_STR);
             $stmt->bindValue(":miId",$IdProfesor,PDO::PARAM_INT);
             if ($stmt->execute()){
                 return "OK";
