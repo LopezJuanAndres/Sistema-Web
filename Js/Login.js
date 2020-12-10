@@ -14,7 +14,7 @@ function ControlarSesionesIniciadas(){
     dataType:'json'
 }).done(function(response){
     if(response=="SesionAbierta"){
-        location.href="Menu.html";
+        location.href="Vista/Menu.html";
     }
 }).fail(function(response){
  console.log(response)
