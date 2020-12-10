@@ -82,6 +82,16 @@ div.news-cards {
    color:black;
  }
 
+ /*Materias */
+ #modalMateria div.modal-content {
+  background:linear-gradient(to right,rgb(241, 227, 196),rgb(226, 200, 150) );
+ }
+
+
+ /*Alumnos */
+ /* Asistencia */
+ /*Clases */
+
 
 
 
