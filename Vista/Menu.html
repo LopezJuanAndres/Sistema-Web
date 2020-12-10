@@ -21,7 +21,7 @@
                             <div class="jumbotron">
                                 <h1 class="text-center">Gestor de Asistencia</h1>
                                 <hr class="bg-dark">
-                            </div>                     
+                           </div>                     
                         </div>
                          <!--.........................................................................-->
                                     <!-- Barra navegacion Encabezado -->
@@ -61,52 +61,67 @@
                         <!-- Cuerpo-->
                     <div class="card-body mt-2 mb-2 border">
                             <!--...........................................................................-->
+                           <div class="row">
+                                    <p>
+                                        Gestor de Asistencia -G.A.- Es un sistema web dedicado exclusivamente para docentes de cualquier Nivel educativo
+                                        ,en el cual se precise registrar la asistencia  a clases de los respectivos alumnos. 
+                                        Este permite ingresar al sistema registrandose con un nombre de usuario y una contraseña,
+                                        el nombre , apellido y una direccion de correo elctronico del profesor o usuario final del sistema.
+                                        Una vez ingresado al mismo , el menu principal brinda las opciones generales que posee -G.A.-. <br>
+                                    </p>
+                                      <h3>Descripcion basica de las funcionalidades de -G.A.- :</h3><br>
+                                    <ul>
+                                        <li><h3>Materias:</h3> Desde este apartado el usuario final registra que materias tiene a su cargo.</li>
+                                        <li><h3>Alumnos:</h3> Desde la pagina alumnos se puede Agregar-Editar-Eliminar 
+                                            datos correspondientes a los alumnos inscriptos en la respectivas materias</li>
+                                        <li><h3>Asistencia:</h3>Aqui es donde el usuario final seleccionara de la lista de alumnos anteriormente 
+                                            cargada los alumnos que estan presentes en una determinada fecha en la cual debera añadir
+                                            una breve descripcion de la clase como referencia para busquedas futuras, registrando asi 
+                                            la clase , los alumnos presentes y ausentes.                
+                                        </li>
+                                        <li>
+                                            <h3>Clases:</h3> Aqui podras ver las clases dictadas para cada correspondiente materia registrada,.</li>
+                                        <li> 
+                                            <h3>Opciones de Usuario :</h3> Este menu permite modificar datos relacionados a los datos proporcionados
+                                            en el registro de la cuenta. 
+                                        </li>
+                                    </ul>
+                           </div>
+                           <hr>
+            
+                            <!--...........................................................................-->
                                <!-- NEWS CARDS -->
-                <div class="news-cards">
-                    <div class="">
-                          <a href="Alumno.html"> <i class="fas fa-users"></i>
-                            <h3>Alumnos</h3></a>
-                            <p> Desde el Menu Alumnos vas a poder registrar , eliminar,modificar y buscar informacion sobre los alumnos.Ademas desde aqui se puede generar un reporte de la lista de alumnos y sus respectivos porcentajes de asistencia a clases.
-                            </p>
+                    <div class="news-cards">
+                            <div class="justify-content-center text-center border btn">
+                                <a href="Materias.html">
+                                    <i class="fas fa-book-open"></i>
+                                    <h3>Materias</h3>
+                                </a>                        
+                            </div>
+                            <div class="justify-content-center text-center border btn">
+                                <a href="Alumnos.html"> <i class="fas fa-users"></i>
+                                    <h3>Alumnos</h3>
+                                </a>
+                            </div>
+                            <div class="justify-content-center text-center border btn">
+                                <a href="Clases.html">
+                                <i class="far fa-calendar-alt"></i>
+                                <h3>Clases</h3> </a>                   
+                            </div>
+                            <div class="justify-content-center text-center border btn">
+                                <!-- <i class="fas fa-print"></i> -->
+                                <a href="Asistencia.html">
+                                <i class="fas fa-tasks"></i>
+                                <h3>Asistencia</h3>
+                                </a>
+                            </div>
+                            <div class="justify-content-center text-center border btn">
+                                 <a href="OpcionesUsuario.html">
+                                <i class="fas fa-users-cog"></i>
+                                <h3>Opciones de Usuario</h3>
+                                 </a>                        
+                            </div>
                     </div>
-                    <div>
-                      <a href="Clases.html">
-                      <i class="far fa-calendar-alt"></i>
-                        <h3>Clases</h3> </a>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam dolore fugit esse corporis nesciunt minima
-                        doloremque modi mollitia rerum, similique optio eligendi itaque amet qui ullam vel incidunt asperiores fuga?
-                         </p>
-                     
-                    </div>
-                    <div>
-                        <!-- <i class="fas fa-print"></i> -->
-                        <a href="Asistencia.html">
-                          <i class="fas fa-tasks"></i>
-                          <h3>Asistencia</h3>
-                        </a>
-                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam dolore fugit esse corporis nesciunt minima
-                             doloremque modi mollitia rerum, similique optio eligendi itaque amet qui ullam vel incidunt asperiores fuga?
-                          </p>
-                    </div>
-                    <div>
-                      <a href="Materias.html">
-                          <i class="fas fa-book-open"></i>
-                          <h3>Materias</h3>
-                      </a>
-                       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam dolore fugit esse corporis nesciunt minima
-                          doloremque modi mollitia rerum, similique optio eligendi itaque amet qui ullam vel incidunt asperiores fuga?
-                       </p>
-                    </div>
-                    <div>
-                      <a href="OpcionesUsuario.html">
-                        <i class="fas fa-users-cog"></i>
-                        <h3>Opciones de Usuario</h3>
-                      </a>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam dolore fugit esse corporis nesciunt minima
-                          doloremque modi mollitia rerum, similique optio eligendi itaque amet qui ullam vel incidunt asperiores fuga?
-                        </p>
-                    </div>
-                  </div>
                         <!--...........................................................................-->
                     </div>
                             <!-- Pie-->
@@ -115,7 +130,7 @@
                                              <!-- Modal -->
                                 <div class="modal fade" id="ModalPresentacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
-                                    <div class="modal-content justify-content-center">
+                                      <div class="modal-content justify-content-center">
                                                     <!-- Modal encabezado -->
                                                 <div class="modal-header justify-content-center text-center">
                                                             <i class="fas fa-address-card"></i>
@@ -136,9 +151,9 @@
                                                         </a>
                                                         <button type="button" class="btn btn-outline-danger btncerrar" data-dismiss="modal">cerrar</button>
                                                 </div>
+                                      </div>
                                     </div>
                                 </div>
-                            </div>
                     </div>
 
             </div>

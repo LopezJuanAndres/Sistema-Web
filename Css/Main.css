@@ -65,14 +65,14 @@ div.news-cards {
   div.news-cards a {
     text-decoration: None;
     padding: 10px 0;
-    color: #f3f7f2;
+    color: #f1870d;
     text-transform: uppercase;
     display: inline-block;
     font-weight: bold;
   }
 
   div.news-cards i{
-      font-size:35px ;
+      font-size:200px;
       color:rgb(238, 159, 69);
   }
 
@@ -107,7 +107,7 @@ div.jumbotron h1{
       div.news-cards a {
         text-decoration: None;
         padding: 10px 0;
-        color: #f3f7f2;
+        color: #f1870d;
         text-transform: uppercase;
         display: inline-block;
         font-weight: bold;
