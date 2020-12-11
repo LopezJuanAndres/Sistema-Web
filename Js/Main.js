@@ -28,3 +28,10 @@ function cargarDatosUsuario (){
    console.log(response)
   });
 }
+
+$(document).ready(function() {
+   
+  cargarDatosUsuario ();
+  
+});
+
