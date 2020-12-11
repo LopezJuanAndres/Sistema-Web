@@ -10,6 +10,23 @@ session_start();
                  return $stmt->fetchAll(PDO::FETCH_OBJ);
             }
             
+                public function nombreProfesor($IdProfesor){
+                    $conexion=new Conexion();
+                    $stmt=$conexion->prepare( "SELECT * FROM `login` WHERE ID=:miId");
+                    $stmt->bindValue(":miId",$IdProfesor,PDO::PARAM_INT);
+                    $stmt->execute();
+                    return $stmt->fetch(PDO::FETCH_OBJ);                 
+                }
+
+
+            public function MateriaProfesor(){
+                $IdProfesor=$_SESSION['IdProfesor'];
+                $conexion=new Conexion();
+                $stmt=$conexion->prepare("SELECT * FROM `materias` WHERE IdProfesor=:miId");
+                $stmt->bindValue(":miId",$IdProfesor,PDO::PARAM_INT);
+                $stmt->execute();
+                return $stmt->fetchAll(PDO::FETCH_OBJ);
+            }
             public function ConsultarPorId($IdMateria){
                 $conexion=new Conexion();
                 $stmt=$conexion->prepare("SELECT Asignatura,Division FROM `materias` WHERE IdMateria=:miId");
@@ -18,14 +35,7 @@ session_start();
                 return $stmt->fetch(PDO::FETCH_OBJ);
             }
                             
-            public function ProfesorLogueado(){
-               
-                $conexion=new Conexion();
-                $stmt=$conexion->prepare( "SELECT * FROM `login` WHERE ID=:miId");
-                $stmt->bindValue(":miId",$IdProfesor,PDO::PARAM_INT);
-                $stmt->execute();
-                return $stmt->fetch(PDO::FETCH_OBJ);
-            }
+          
      
        public function Insertar($Asignatura,$Curso){
         $IdProfesor=$_SESSION['IdProfesor'];
@@ -42,7 +52,7 @@ session_start();
                   return "Error: se ha generado un error al Insertar la informacion";
                }
        }
-       public function Modificar($Asignatura,$Curso, $IdMateria){
+       public function Modificar($Asignatura,$Curso,$IdMateria){
         $IdProfesor=$_SESSION['IdProfesor'];
         $sql="UPDATE `materias` SET Asignatura=:miMat,Division=:miCur,IdProfesor=:miPro WHERE IdMateria=:miId";
         $conexion=new Conexion();

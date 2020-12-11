@@ -1,7 +1,7 @@
-var  url="./../Controlador/Menu.controlador.php";
+var  url2="./../Controlador/Menu.controlador.php";
 function cerrarSesion(){
     $.ajax({
-    url:url,
+    url:url2,
     data:{"accion":"CERRARSESION"},
     type:'POST',
     dataType:'json'
@@ -17,7 +17,7 @@ function cerrarSesion(){
 function cargarDatosUsuario (){
     
   $.ajax({
-      url:url,
+      url:url2,
       data:{"accion":"CONSULTARID"},
       type:'POST',
       dataType:'json'

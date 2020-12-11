@@ -1,11 +1,17 @@
 <?php
 include "../Modelo/materias.modelo.php";
- if ($_POST){
-    
+ if ($_POST){    
      $Materia=new Materia();
      switch($_POST["accion"]){
          case "CONSULTAR":
             echo json_encode($Materia->ConsultarTodo());
+         break;
+         case "Materias":
+            echo json_encode($Materia->MateriaProfesor());
+         break;
+         case "Profesor":
+            $IdProfesor=$_POST['IdProfesor'];
+            echo json_encode($Materia->nombreProfesor($IdProfesor));
          break;
          case "CONSULTAR_ID":
             $IdMateria=$_POST['IdMateria'];
@@ -29,16 +35,7 @@ include "../Modelo/materias.modelo.php";
             $IdMateria=$_POST['IdMateria'];
             $respuesta= $Materia->Modificar($Asignatura,$Curso,$IdMateria);
             echo json_encode($respuesta);
-         break;
-         case "Login":
-            echo json_encode($Materia->ProfesorLogueado());
-         break;
-         break;
-         /*
-         case "BUSCAR":
-            $BUSCAR=$_POST['BUSCAR'];
-            echo json_encode($Materia->ConsultarPorNombreApellidoDNI($BUSCAR));
-         break;*/
-     }
+         break;        
+       }
  }
 ?>

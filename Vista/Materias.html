@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="../Css/Main.css"/>
+    <!--<script src="../Js/Main.js"></script> -->
     <script src="../Js/Materias.js"></script>
-    <script src="../Js/Main.js"></script>
 </head>
     <body>
             <div class="container">
@@ -65,7 +65,7 @@
                              <!-- Button trigger modal -->
                              <button type="button" class="btn btn-outline-success mt-2 mb-2" onclick="nuevaMateria()" data-toggle="modal" data-target="#modalMateria">
                                 <i class="fas fa-plus-square"> </i>  Agregar Materia </button>
-
+                                
                               <!-- Modal -->
                               <div class="modal fade" id="modalMateria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -81,17 +81,17 @@
                                                   <div class="form-group">
                                                      
                                                       <label for="asignatura">Nombre de la Asignatura Nº:  <span id="IdMateria" class="badge badge-pill badge-primary"></span></label>
-                                                      <input class="form-control"name="Materia" id="Materia" placeholder="Materia" type="text" value="" required>
+                                                      <input class="form-control"name="Materia" id="Materia" placeholder="Materia" type="text" value="" >
                                                   </div>
                                                   <div class="form-group">
                                                           <label for="Curso">Curso-Año-Division:</label>
-                                                          <input class="form-control" name="Curso" id="Curso" value="" type="text" placeholder="Division 3ºc,5ºB,etc" required>
+                                                          <input class="form-control" name="Curso" id="Curso" value="" type="text" placeholder="Division 3ºc,5ºB,etc" >
                                                   </div>
                                     </div>
                                     <div class="modal-footer bg-warning">
                                       <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                      <button type="button" id="botonAgregar" class="btn btn-success">Agregar</button>
-                                      <button type="button" id="botonModificar" class="btn btn-info">Modificar</button>
+                                      <button type="button" onclick="AgregarMateria()" id="botonAgregar" class="btn btn-success">Agregar</button>
+                                      <button type="button" onclick="modificar()" id="botonModificar" class="btn btn-info">Modificar</button>
                                     </div>
                                   </div>
                                 </div>
