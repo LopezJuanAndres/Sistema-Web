@@ -20,8 +20,7 @@ include "../Modelo/materias.modelo.php";
          case "INSERTAR":         
             $Asignatura=$_POST['Asignatura'];
             $Curso=$_POST['Curso'];
-            $IdProfesor=$_POST['IdProfesor'];
-            $respuesta=$Materia->InsertarInsertar($Asignatura,$Curso,$IdProfesor);
+            $respuesta=$Materia->Insertar($Asignatura,$Curso);
             echo json_encode($respuesta);
          break;
          case "MODIFICAR":

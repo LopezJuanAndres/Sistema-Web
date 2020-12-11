@@ -69,22 +69,7 @@ function ModificarCuenta(){
         cargarDatosUsuario ();
 }
 
-function cerrarSesion(){
-    $.ajax({
-    url:url,
-    data:{"accion":"CERRARSESION"},
-    type:'POST',
-    dataType:'json'
-}).done(function(response){
- var usuario=response.Nombre;
-  if(response=="sesionCerrada"){
-      alert("Sesion cerrada, hasta luego " +usuario)
-    location.href= "Login.html";
-  }
-}).fail(function(response){
- console.log(response)
-});
-}
+
 
 function retornarDatos(accion){
     return { "accion":accion,

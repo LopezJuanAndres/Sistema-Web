@@ -1,6 +1,6 @@
 $(document).ready(function() {
        Consultar();
-       Profesor();
+      
 
 });
 
@@ -83,8 +83,32 @@ function Consultar(){
          $("span#IdMateria").hide();
          $("#botonAgregar").show();
    }
+    function AgregarMateria(){
+      $.ajax({
+        url:url,
+        data:{"accion":"CONSULTAR"},
+        type:'POST',
+        dataType:'json'
+    }).done(function(response){
+    
+      
    
+    
+      }).fail(function(response){
+     console.log(response)
+    });
 
+
+    }
+   
+    function retornarDatos(accion){
+      return { "accion":accion,
+      "Asignatura":$("#Materia").val(),
+      "Curso":$("#Curso").val(),
+      "IdMateria":$("#IdMateria").val(),     
+      
+      }
+  }
    
   
 
