@@ -1,29 +1,6 @@
 $(document).ready(function() {
        Consultar();
-        $("#opcionesMat").hide();
-      /*  $(".Materia").hide();
-       $(".Curso").hide(); 
-     evento de cambio del select materias
-$('#materia').on('change', function (){
-    if ($('#materia').val()=='todas'){
-        Consultar();
-               }else {
-        seleccionMateria();
-    }   
-  
-}); */
-/*  Funcion para cargar la lista de alumnos
-Consultar();
-*/
-/*  evento click del boton buscar
-$('#btnBuscar').click(function (){
-if ($('#BUSCAR').val()==''){
-    Consultar();
-           }else {
-            buscar();
-}   
-});
-*/
+       Profesor();
 
 });
 
@@ -31,20 +8,24 @@ var url="./../Controlador/Materias.controlador.php";
 
 
 /* Muestra cantidad de alumnos en la tabla*/
-function ConsultarPorId(IdMateria){
+function ConsultarPorId(IdMateria){  
   
+  document.getElementById("TituloModal").innerHTML="Modificar Materia";
+  document.getElementById("IdMateria").innerHTML=IdMateria;
      $.ajax({
      url:url,
      data:{"accion":"CONSULTAR_ID","IdMateria":IdMateria},
      type:'POST',
      dataType:'JSON'
 }) .done(function(response){
-  $(".Materia").val(response.Asignatura);
-  $(".Curso").val(response.Division);
-  $("#opcionesMat").show();
-    /* var html="<span class='badge badge-pill badge-primary'>" + filas + "  </span>";
-    document.getElementById("cantAlum").innerHTML=html;*/
-      }) .fail(function(response){
+  var html="";
+  $("#Materia").val(response.Asignatura);
+  $("#Curso").val(response.Division);
+  $("#IdMateria").val(response.IdMateria);
+  $("#botonModificar").show();
+  $("span#IdMateria").show();
+  $("#botonAgregar").hide();
+}) .fail(function(response){
   console.log(response)
  });
 }
@@ -66,7 +47,7 @@ function Consultar(){
       html += "<td>" + data.Asignatura +"</td>";
       html += "<td>" + data.Division +"</td>";
       html += "<td>";
-      html += "<button class='btn btn-outline-warning mr-1 btn-modificar' id='btn-modificar' onclick='ConsultarPorId("+ data.IdMateria + ")'> <span class='fa fa-edit'></span>Editar</button>";
+      html += "<button class='btn btn-outline-warning mr-1 btn-modificar' id='btn-modificar' onclick='ConsultarPorId("+ data.IdMateria + ")' data-toggle='modal' data-target='#modalMateria'> <span class='fa fa-edit'></span>Editar</button>";
       html += "<button class='btn btn-outline-danger' id='boton-eliminar' onclick='Eliminar(" + data.IdMateria + ")'><span class='fa fa-trash'></span>Borrar</button>";
       html += "</td>";
       html += "</tr>";
@@ -77,28 +58,34 @@ function Consultar(){
   });
   }
 
-  function recorrerid(){
-    var total=0;
-    var filas=0;
+  function modificar(){
     
-    //selector &gt;&gt;  $("#GridView1 tr").find('td:eq(1)')
-    //De esta manera utilizando eq seleccionamos la segunda fila, ya que la primera es 0
-    $("#tablamaterias tr").find('td:eq(0)').each(function () {
+    $.ajax({
+      url:url,
+      data:{"accion":"MODIFICAR",},
+      type:'POST',
+      dataType:'JSON'
+ }) .done(function(response){
+   $(".Materia").val(response.Asignatura);
+   $(".Curso").val(response.Division);
+   $("#opcionesMat").show();
      
-     //obtenemos el valor de la celda
-      valor = $(this).html();
-     
-     //le asigna a idmateria el valor que contiene la celda
-     var IdMateria = parseInt(valor);
-      //Envia la id y la consulta
-     ConsultarPorId(IdMateria);
-     
-    
-    })
-     
-    
-
-
+       }) .fail(function(response){
+   console.log(response)
+  });
   }
+   function nuevaMateria(){
+    document.getElementById("TituloModal").innerHTML="Nueva Materia";
+    $(".modal-body input").each(function(){
+      $('input[type="text"]').val('');
+          });   
+         $("#botonModificar").hide();
+         $("span#IdMateria").hide();
+         $("#botonAgregar").show();
+   }
+   
+
+   
+  
 
  
