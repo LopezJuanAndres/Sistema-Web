@@ -36,7 +36,7 @@ var url="./../Controlador/Alumno.controlador.php";
 var url2="./../Controlador/Materias.controlador.php";
 
 
-
+/* Muestra todos los alumnos de la base de datos solo lo ve el admin */
 function Consultar(){
   $.ajax({
     url:url,
@@ -60,11 +60,12 @@ $.each(response, function(index,data){
     html += "</tr>";
 });
 document.getElementById("datos").innerHTML=html;
-CargarMaterias();
+
 }).fail(function(response){
  console.log(response)
 });
 }
+/* muestra los alumnos que cursan esa materia */
 function  Consultarmismaterias(){
     $.ajax({
         url:url,
@@ -304,6 +305,7 @@ function seleccionMateria(){
 
 $(document).ready(function() {
     cargarDatosUsuario();
+
     var profe=document.getElementById("Profe").value;    
     var compa='Administrador';
     if(profe==compa){
@@ -315,10 +317,15 @@ $(document).ready(function() {
       } else{
           /*  Funcion para cargar la lista de materias que solo son del profesor logueado*/
         listaMaterias();
+        Consultarmismaterias();
       }
+      var materiaselecinada="";
         /*  evento de cambio del select materias*/
-    $('#materia').on('change', function ()
-    { if ($('#materia').val()=='todas'){
+        materiaselecinada= document.getElementById('materia').value;
+        alert(materiaselecinada);
+        var parametro='todas';
+            $('#materia').on('change', function ()       
+    { if (materiaselecinada==parametro){
         Consultarmismaterias();
                    }else {
             seleccionMateria();  }                 

@@ -7,8 +7,8 @@ session_start();
                     $IdProfesor=$_SESSION['IdProfesor'];
                     $conexion=new Conexion();
                 $stmt=$conexion->prepare( "SELECT * FROM `alumnos`
-                        INNER JOIN materias ON (materias.IdProfesor=:miProf)
-                        INNER JOIN materiasalumnos ON (materias.IdAlumno=alumnos.IdAlumnos)");
+                        INNER JOIN materiasalumnos ON (materiasalumnos.IdAlumno=alumnos.IdAlumno)
+                        INNER JOIN materias ON (materias.IdProfesor=:miProf AND materiasalumnos.IdMateria=materias.Idmateria)");
                   $stmt->bindValue(":miProf",$IdProfesor,PDO::PARAM_INT);
                 $stmt->execute();
                  return $stmt->fetchAll(PDO::FETCH_OBJ);
