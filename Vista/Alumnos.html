@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="../Css/Main.css"/>
-    <script src="../Js/Main.js"></script>
+    <script src="../Js/alumnos.js"></script>
 </head>
     <body>
             <div class="container">
@@ -60,7 +60,113 @@
                      
                         <!-- Cuerpo-->
                     <div class="card-body mt-2 mb-2 border">
+              <!--...............................................................................................-->
+                                            <input type="hidden" id="Profe" name="Profe">
+                                    <!-- Modal -->
+                                <div class="modal fade" id="modal-Alumno" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel"><label id="IdAlum"></label>
+                                            <input type="hidden" name="IdAlumno" id="IdAlumno" >
+                                            <input type="hidden" name="IdMateria" id="IdMateria" >
+                                          </h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <div class="form-group border border-info mt-2 mb-2 " > 
+                                            <div class="row mt-3 mr-2 ml-2">
+                                                  <div class="col-md-6" > 
+                                                              <label for="Nombre"></label>
+                                                            <input class="form-control" type="text" name="Nombre" id="Nombre" placeholder="Nombre" autofocus>
+                                                  </div>
+                                                  <div class="col-md-6">
+                                                      <label for="Apellido"></label>
+                                                      <input class="form-control" type="text" name="Apellido" id="Apellido" placeholder="Apellido" >
+                                                  </div>
+                                            </div>
+                                            <div class="row mr-2 ml-2">
+                                                <div class="col-md-6">
+                                                    <label for="Documento"></label>
+                                                    <input class="form-control" type="text" name="Documento" id="Documento" placeholder="Documento" >
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Telefono"></label>
+                                                    <input class="form-control" type="text" name="Telefono" id="Telefono" placeholder="Telefono" >
+                                                </div> 
+                                            </div>
+                                            <div class="row mb-5 mr-2 ml-2">
+                                                <div class="col-md-6">
+                                                    <label for="Dirreccion"></label>
+                                                    <input class="form-control" type="text" name="Dirreccion" id="Dirreccion" placeholder="Domicilio" >
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="Correo"></label>
+                                                    <input class="form-control" type="text" name="Correo" id="Correo" placeholder="Correo Electronico" >
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" id="btnModificar" class="btn btn-outline-info mr-2" onclick="Modificar()"><i class="fas fa-user-edit"></i> Guardar Cambios</button>
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                          <button type="button" id="btnInsertar" onclick="Insertar()" class="btn btn-primary">Insertar</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                 <!-- Opciones de Alumnos -->
+                                <div class="btn-group-sm mb-1 mt-1 ">
+                                                       
+                                                    <!-- Botonera Superior -->
+                                                    <div class="row mb-2 mt-2 justify-content-center border  text-center border-info"> 
+                                                                                        <!-- Seleccionar Materias -->
+                                                                <div class="col-12 mt-1 mb-1 border  border-info justify-content-center">
+                                                                          <div class="col-4 text-right mt-1 mb-1">
+                                                                                <h3 class="text-info">Selecciona la Materia:</h3>
+                                                                          </div>
+                                                                          <div class="col-4 mt-1 mb-2">
+                                                                                  <select class="form-control" name="materia" id="materia" form="materia">
+                                                                                  </select>
+                                                                          </div>
+                                                                </div>
+                                                              <!-- Boton Agregar -->
+                                                              <div class="col justify-content-right mt-2 mb-2">
+                                                                <button class="btn btn-outline-success "  onclick="BorrarInputs()" data-toggle="modal" data-target="#modal-Alumno" ><i class="fas fa-user-plus"></i> Agregar</button>
+                                                              </div> 
+                                                              <!-- Input Buscar -->
+                                                              <div class="col-6 mt-2">
+                                                                <input class="form-control" type="search" name="BUSCAR" id="BUSCAR" placeholder="DNI-Nombre-Apellido" aria-label="Search">
+                                                              </div>  
+                                                                <!-- Boton Buscar -->
+                                                              <div class="col-2  mt-2">
+                                                                    <button class="btn btn-outline-info my-2 my-sm-0 " id="btnBuscar"  ><span class="fa fa-search"></span> Buscar</button>
+                                                              </div>
+                                                                
+                                                    </div>
+                                </div>
+                        <hr class="bg-white">
+                                
+                        <table class="table   table-bordered  table-responsive-sm ">
+                            <thead class="text-center">
+                                <tr class="text-center bg-info text-white">
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Documento</th>
+                                    <th>Telefono</th>
+                                    <th>Direccion</th>
+                                    <th>Correo</th>
+                                    <th>Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="datos" >
+                            </tbody>
+                        </table>
 
+             
+              <!--...............................................................................................-->
                     </div>
                             <!-- Pie-->
                     <div class="card-footer  text-center Text-dark justify-content-center">

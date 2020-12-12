@@ -39,8 +39,8 @@ function Login(){
             var Apellido;
                 var Nombre;
                 var IdUsuario;
-                var usuaregistrado
-                var contregistrada
+                var usuaregistrado;
+                var contregistrada;
             $.each(response, function(index,data){
                 usuaregistrado =data.Usuario;
                 contregistrada =data.Contraseña;

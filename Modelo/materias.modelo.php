@@ -9,6 +9,7 @@ session_start();
                 $stmt->execute();
                  return $stmt->fetchAll(PDO::FETCH_OBJ);
             }
+         
             
                 public function nombreProfesor($IdProfesor){
                     $conexion=new Conexion();

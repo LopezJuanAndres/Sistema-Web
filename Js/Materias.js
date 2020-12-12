@@ -25,6 +25,7 @@ function cargarDatosUsuario (){
   }).done(function(response){
    var usuario=response.Nombre;
      document.getElementById("Profesor").innerHTML=usuario;
+     $("#Profe").val()=usuario;
   }).fail(function(response){
    console.log(response)
   });
@@ -34,8 +35,9 @@ function cargarDatosUsuario (){
 
 var url="./../Controlador/Materias.controlador.php";
 $(document).ready(function() {
+  $("#Profe").val("");
   cargarDatosUsuario ();
-  if($("#Profesor").html("Administrador")){
+  if($("#Profe").val("Administrador")){
     alert("Como Administrador Puedes ver todas las materias registradas en el sistema y su respectivo Profesor")
     Consultar();
   } else{
