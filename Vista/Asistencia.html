@@ -93,7 +93,7 @@
                  <!--...................................................................................-->
 
                                         <div class="row bg-secondary text-center border mt-2">
-                                             
+                                               
                                                 <Table class="table bg-white  table-striped  table-bordered ">
                                                     <thead class="justify-content-center">
                                                             <tr class="text-center text-dark"> 
@@ -102,14 +102,14 @@
                                                                 <th>Apellido</th>
                                                             </tr>
                                                         </thead>
-                                                            <tbody id=""></tbody>
+                                                            <tbody id="ListPresentes"></tbody>
                                                 </Table>
                                         </div>  
                    <!--...................................................................................-->
                                     </div>
                                     <div class="modal-footer bg-info">
                                       <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                      <button type="button" onclick="" id="btnConfir" class="btn btn-success"> Confirmar Asistencia</button>
+                                      <button type="button" onclick="insertarlista()" id="btnConfir" class="btn btn-success"> Confirmar Asistencia</button>
                                     </div>
                                   </div>
                                 </div>
@@ -119,6 +119,11 @@
 <!-- Lista de alumnos --> 
             <div id="ListaAl" class="row">
                 <div  class="col text-white ">
+                    <div class="row ml-2 mr-2 mt-2 mb-2 float-center">
+                        <h5 class="text-info col-3 justify-content-center text-center border mr-3">Selecciona la Materia:</h5>
+                              <select class="form-control col-5" name="materia" id="materia" form="materia">
+                              </select>
+                      </div>
                           <div class=" bg-dark" >
                              <h3 class="text-center text-white">Lista de alumnos</h3>
                           </div>
@@ -131,10 +136,10 @@
                                       <th>Estado</th>
                                   </tr>
                               </thead>
-                                  <tbody id="alumnos-asistencia"></tbody>
+                                  <tbody class="text-center" id="alumnos-asistencia"></tbody>
                           </Table>
                            <!-- Button trigger modal -->
-                 <button type="button" class="btn  btn-outline-success float-right mt-2 mb-2" onclick="" data-toggle="modal" data-target="#modalClases">
+                 <button type="button" class="btn  btn-outline-success float-right mt-2 mb-2" onclick="vercheckActivos()" data-toggle="modal" data-target="#modalClases">
                     <i class="fas fa-tasks"></i> Confirmar asistencia </button>
                 </div>                 
                        

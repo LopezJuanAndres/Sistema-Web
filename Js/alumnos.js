@@ -1,3 +1,5 @@
+var url="./../Controlador/Alumno.controlador.php";
+var url2="./../Controlador/Materias.controlador.php";
 var  url3="./../Controlador/Menu.controlador.php";
 function cerrarSesion(){
     $.ajax({
@@ -32,8 +34,7 @@ function cargarDatosUsuario (){
 }
 
 /* */
-var url="./../Controlador/Alumno.controlador.php";
-var url2="./../Controlador/Materias.controlador.php";
+
 
 
 /* Muestra todos los alumnos de la base de datos solo lo ve el admin */
@@ -324,8 +325,8 @@ $(document).ready(function() {
         materiaselecinada= document.getElementById('materia').value;
         alert(materiaselecinada);
         var parametro='todas';
-            $('#materia').on('change', function ()       
-    { if (materiaselecinada==parametro){
+      $('#materia').on('change', function ()       
+        { if (materiaselecinada==parametro){
         Consultarmismaterias();
                    }else {
             seleccionMateria();  }                 
