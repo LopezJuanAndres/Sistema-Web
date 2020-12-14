@@ -1,7 +1,8 @@
 /* funciones basicas de todos los archivos */
-var  url2="./../Controlador/Menu.controlador.php";
+var url2="./../Controlador/Menu.controlador.php";
 var url3="./../Controlador/Materias.controlador.php";
 var url4="./../Controlador/Alumno.controlador.php";
+var url5="./../Controlador/Clases.controlador.php";
 function cerrarSesion(){
     $.ajax({
     url:url2,
@@ -53,8 +54,7 @@ $(document).ready(function() {
  function cambiodeMateria(){
      /*  evento de cambio del select materias*/
       if ($('#materia').val()=='todas'){
-       alert("verdadero")
-      Consultarmismaterias();}
+          Consultarmismaterias();}
  else { seleccionMateria();}                 
  }
  /* carga las opciones en el select */
@@ -66,7 +66,7 @@ $(document).ready(function() {
       dataType:'json'
   }).done(function(response){
   var html="";
-  html +="<option value='todas'>Todas</option>";
+  /*html +="<option value='todas'>Todas</option>";*/
   $.each(response, function(index,data){
       html += "<option value="+ data.IdMateria + ">"+ data.Asignatura +" "+ data.Division +"</option>";
   });
@@ -130,12 +130,9 @@ function seleccionMateria(){
 function insertarlista(){
   var fecha=$("#fechaclase").val();
   var tema=$("#txtTema").val();
-  alert(fecha+tema);
-
-  $("#ListPresentes tr input.txtId").each(function(){
-    var IdAlumno=$(this).val();
-    alert (IdAlumno);
-  });
+  var IdMateria=$("#materia").val();
+  //alert(fecha+tema+IdMateria);
+  insertClases(fecha,tema,IdMateria) ;
   
 }
 /* carga los alumnos tildados en la tabla del modal */
@@ -170,3 +167,45 @@ function ConsultarPorId (IdAlumno){
    console.log(response)
   });
 }
+/* Guarda la tabla en un formato Pdf */
+function pdf(){ 
+  var doc= new jsPDF();
+
+// var HTMLelement=$("#tablax").html();
+ //  doc.fromHTML(HTMLelement,10,10,{
+ //   'width':190  })
+   doc.autoTable({html:'#tablax'});
+ 
+  doc.save("Asistencia.pdf");
+}
+
+
+//insertar datos en la tabla clases
+function insertClases(fecha,tema,IdMateria){
+  $.ajax({
+    url:url5,
+    data:{"accion":"INSERTAR","Fecha":fecha,"Descripcion":tema,"IdMateria":IdMateria},
+    type:'POST',
+    dataType:'json'
+    }) .done(function(response){
+         if (response!=""){
+            var idnuevo=response;
+            insertAsistencia(idnuevo);           
+        }else {
+            alert(response);
+        }
+    }).fail(function(response){
+        console.log(response);
+    });
+    
+}
+//insertar datos en asistencia
+function insertAsistencia(idnuevo){
+  $("#ListPresentes tr input.txtId").each(function(){
+    var IdAlumno=$(this).val();
+    alert ( "se tiene que guardar el alumno nº :"+IdAlumno+" con la clase nº :"+idnuevo);
+    
+  });
+
+}
+//insertar datos en 

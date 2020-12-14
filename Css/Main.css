@@ -90,6 +90,11 @@ div.news-cards {
 
  /*Alumnos */
  /* Asistencia */
+#tabla {
+  border:1px;
+  border-style: solid;
+}
+
  /*Clases */
 
 

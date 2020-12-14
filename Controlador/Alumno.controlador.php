@@ -26,6 +26,12 @@ include "../Modelo/alumno.modelo.php";
             $respuesta=$alumno->Eliminar($IdAlumno);
             echo json_encode($respuesta);
          break;
+         case "INSERTAREXTRA":
+            $IdAlumno=$_POST['IdAlumno'];
+            $IdMateria=$_POST['IdMateria'];
+            $respuesta=$alumno->InsertarAlMa($IdAlumno,$IdMateria);
+            echo json_encode($respuesta);
+         break;
          case "INSERTAR":         
             $Nombre=$_POST['Nombre'];
             $Apellido=$_POST['Apellido'];

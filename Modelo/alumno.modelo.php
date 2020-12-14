@@ -38,12 +38,24 @@ session_start();
             public function ConsultarMateria($IdMateria){
                 $conexion=new Conexion();
                 $stmt=$conexion->prepare("SELECT * FROM `alumnos`INNER JOIN `materiasalumnos` ON (materiasalumnos.IdMateria =:miId AND materiasalumnos.IdAlumno=alumnos.IdAlumno)");
-                $stmt->bindValue(":miId",$IdMateria,PDO::PARAM_STR);
+                $stmt->bindValue(":miId",$IdMateria,PDO::PARAM_INT);
                 $stmt->execute();
                  return $stmt->fetchAll(PDO::FETCH_OBJ);
             }
            
-
+            public function InsertarAlMa($IdAlumno,$IdMateria){
+                $sql="INSERT INTO `materiasalumnos` (IdAlumno,IdMateria)
+                    VALUES (:mialu,:mimat)";
+                $conexion=new Conexion();
+                $stmt=$conexion->prepare($sql);
+                $stmt->bindValue(":mialu",$IdAlumno,PDO::PARAM_INT);
+                $stmt->bindValue(":mimat",$IdMateria,PDO::PARAM_INT);
+                if ( $stmt->execute()){
+                     return "OK";} 
+                    else { 
+                    return "Error: se ha generado un error al Insertar la informacion";
+                    }
+            }
       
             public function Insertar($Nombre,$Apellido,$Documento,$Telefono,$Dirreccion,$Correo){
                 $sql="INSERT INTO `alumnos` (Nombre,Apellido,Documento,Telefono,Dirreccion,Correo)
@@ -57,7 +69,8 @@ session_start();
                 $stmt->bindValue(":miDir",$Dirreccion,PDO::PARAM_STR);
                 $stmt->bindValue(":miCo",$Correo,PDO::PARAM_STR);
                 if ( $stmt->execute()){
-                    return "OK" ;} 
+                    $id = $conexion->lastInsertId();
+                 return $id;} 
                     else { 
                     return "Error: se ha generado un error al Insertar la informacion";
                     }

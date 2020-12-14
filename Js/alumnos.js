@@ -1,6 +1,43 @@
 var url="./../Controlador/Alumno.controlador.php";
 var url2="./../Controlador/Materias.controlador.php";
 var  url3="./../Controlador/Menu.controlador.php";
+
+/*  Evento de carga del documento*/
+
+$(document).ready(function() {
+    cargarDatosUsuario();
+    var profe=document.getElementById("Profe").value;    
+    var compa='Administrador';
+    if(profe==compa){
+        alert("Modo Administrador")
+        CargarMaterias();
+        /*  Funcion para cargar la lista de alumnos completa modo Admin*/
+           Consultar();
+      } else{
+          /* Funcion para cargar la lista de materias que solo son del profesor logueado*/
+        listaMaterias();
+        Consultarmismaterias();}     
+        /*  evento de cambio del select materias*/
+
+        $('#materia').on('change', function ()  { 
+             cambiodeMateria();                 
+         });
+         
+  /*  evento click del boton buscar*/
+        $('#btnBuscar').click(function (){
+        if ($('#BUSCAR').val()==''){
+            Consultarmismaterias();
+                }else {
+                    buscar(); }   
+   });
+
+
+  });
+
+
+
+
+ /* desruye la sesion iniciada */
 function cerrarSesion(){
     $.ajax({
     url:url3,
@@ -16,6 +53,7 @@ function cerrarSesion(){
  console.log(response)
 });
 }
+/*muestra el nombre del profesor loguiado */
 function cargarDatosUsuario (){
     
   $.ajax({
@@ -32,10 +70,6 @@ function cargarDatosUsuario (){
    console.log(response)
   });
 }
-
-/* */
-
-
 
 /* Muestra todos los alumnos de la base de datos solo lo ve el admin */
 function Consultar(){
@@ -164,7 +198,7 @@ function Eliminar(IdAlumno){
     }).fail(function(response){
         console.log(response);
     });
-    Consultar();
+    Consultarmismaterias();
 }
 /* modifica los datos ingresados en el modal */
 function Modificar(){
@@ -183,7 +217,7 @@ function Modificar(){
     }).fail(function(response){
         console.log(response);
     });
-    Consultar();
+    Consultarmismaterias();
 }
 /* Inserta los datos ingresados en el modal */
 function Insertar(){
@@ -193,15 +227,17 @@ function Insertar(){
     type:'POST',
     dataType:'json'
     }) .done(function(response){
-        if (response=="OK"){
-            alert("Datos Añadidos con exito");
-            }else {
+         if (response!=""){
+            var idnuevo=response;
+            insertarMateriaAlumno(idnuevo);           
+        }else {
             alert(response);
         }
     }).fail(function(response){
         console.log(response);
     });
-    Consultar();
+    
+    Consultarmismaterias();
     }
 
 /* retorna los valores obteniidos de los elementos del dom */
@@ -242,11 +278,14 @@ function listaMaterias(){
         dataType:'json'
     }).done(function(response){
     var html="";
+    var html2="";
     html +="<option value='todas'>Todas</option>";
     $.each(response, function(index,data){
         html += "<option value="+ data.IdMateria + ">"+ data.Asignatura +" "+ data.Division +"</option>";
+        html2 += "<option value="+ data.IdMateria + ">"+ data.Asignatura +" "+ data.Division +"</option>";
     });
     document.getElementById("materia").innerHTML=html;
+    document.getElementById("materia2").innerHTML=html2;
     }).fail(function(response){
      console.log(response)
     });
@@ -260,11 +299,14 @@ function CargarMaterias(){
         dataType:'json'
     }).done(function(response){
     var html="";
-    html +="<option value='todas'>Todas</option>";
+    var html2="";
+     html +="<option value='todas'>Todas</option>";     
     $.each(response, function(index,data){
         html += "<option value="+ data.IdMateria + ">"+ data.Asignatura +" "+ data.Division +"</option>";
+        html2 +="<option value="+ data.IdMateria + ">"+ data.Asignatura +" "+ data.Division +"</option>";
     });
     document.getElementById("materia").innerHTML=html;
+    document.getElementById("materia2").innerHTML=html2;
     }).fail(function(response){
      console.log(response)
     });
@@ -299,48 +341,39 @@ function seleccionMateria(){
     });
 
 }
+/* agrega los datos a la tabla foranea alumnos materias */
+function insertarMateriaAlumno(idnuevo){
+var idalu= idnuevo;
+var Idmat=$("#materia2").val();
+$.ajax({
+    url:url,
+    data:{"accion":"INSERTAREXTRA","IdMateria":Idmat,"IdAlumno":idalu},
+    type:'POST',
+    dataType:'json'
+    }) .done(function(response){
+            if (response=="OK"){
+            alert("Datos Añadidos con exito");
+              }else {
+            alert(response);
+        }
+    }).fail(function(response){
+        console.log(response);
+    });
+
+}
 
 
+/*  evalua si se selecciona la opcion todos*/
+  function cambiodeMateria(){    
+     if ($('#materia').val()=='todas'){
+         Consultarmismaterias();}
+else { seleccionMateria();}                 
+}
 
-/*  Evento de carga del documento*/
-
-$(document).ready(function() {
-    cargarDatosUsuario();
-
-    var profe=document.getElementById("Profe").value;    
-    var compa='Administrador';
-    if(profe==compa){
-        alert("Como Administrador Puedes ver todas las materias registradas en el sistema y su respectivo Profesor")
-        CargarMaterias();
-        /*  Funcion para cargar la lista de alumnos completa modo Admin*/
-           Consultar();
-
-      } else{
-          /*  Funcion para cargar la lista de materias que solo son del profesor logueado*/
-        listaMaterias();
-        Consultarmismaterias();
-      }
-      var materiaselecinada="";
-        /*  evento de cambio del select materias*/
-        materiaselecinada= document.getElementById('materia').value;
-        alert(materiaselecinada);
-        var parametro='todas';
+/*     var parametro='todas';
       $('#materia').on('change', function ()       
         { if (materiaselecinada==parametro){
         Consultarmismaterias();
                    }else {
             seleccionMateria();  }                 
-    });
-
-
-  /*  evento click del boton buscar*/
-  $('#btnBuscar').click(function (){
-    if ($('#BUSCAR').val()==''){
-        Consultarmismaterias();
-               }else {
-                buscar();
-    }   
-   });
-
-
-  });
+    }); */
