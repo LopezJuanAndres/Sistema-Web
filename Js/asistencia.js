@@ -37,11 +37,15 @@ function cargarDatosUsuario (){
 
 /* evento de carga del documento */
 
-$(document).ready(function() {   
+$(document).ready(function() { 
+  
   cargarDatosUsuario ();
   listaMaterias();
-  Consultarmismaterias();  
+  seleccionMateria();
+  Consultarmismaterias(); 
+  
   $('#materia').on('change', function () {
+    
     cambiodeMateria();
   });
   $('input.check').on('click',function(){
@@ -111,6 +115,7 @@ function seleccionMateria(){
         dataType:'json'
    })  .done(function(response){
     var html="";
+    var html2="";
     $.each(response, function(index,data){
       html += "<tr class='btn-outline-info'>"; 
       html += "<td>" + data.Documento +"</td>";
@@ -120,8 +125,14 @@ function seleccionMateria(){
       html += "<input type='checkbox' class='check' name='check' id='check' value="+ data.IdAlumno +" onclick='ConsultarPorId("+data.IdAlumno+")' >";
       html += "</td>";
       html += "</tr>";
+      html2 += "<tr class='btn-outline-info'>"; 
+      html2 += "<td>" + data.Documento +"</td>";
+      html2 += "<td>" + data.Nombre +"</td>";
+      html2 += "<td>" + data.Apellido +"</td>";
+      html2 += "</tr>";
     });
     document.getElementById("alumnos-asistencia").innerHTML=html;
+    document.getElementById("tablaimpr").innerHTML=html2;
     }) .fail(function(response){
      console.log(response)
     });
@@ -203,9 +214,67 @@ function insertClases(fecha,tema,IdMateria){
 function insertAsistencia(idnuevo){
   $("#ListPresentes tr input.txtId").each(function(){
     var IdAlumno=$(this).val();
-    alert ( "se tiene que guardar el alumno nº :"+IdAlumno+" con la clase nº :"+idnuevo);
-    
+        $.ajax({
+      url:url5,
+      data:{"accion":"INSERTARasis","IdClase":idnuevo,"IdAlumno":IdAlumno},
+      type:'POST',
+      dataType:'json'
+      }) .done(function(response){
+           if (response!=""){
+              var idnuevo=response;
+              insertAsistencia(idnuevo);           
+          }else {
+              alert(response);
+          }
+      }).fail(function(response){
+          console.log(response);
+      });
+
+
   });
 
 }
-//insertar datos en 
+//consultar todas las clases registradas
+function ConsultarClases(){
+  var idmat=$("#materia").val();
+        $.ajax({
+      url:url5,
+      data:{"accion":"CONSULTARCLASES","IdMateria":idmat},
+      type:'POST',
+      dataType:'json'
+      }) .done(function(response){
+        /*   var total=0;
+           $.each(response, function(index,data){
+            total+=1;
+        });
+         document.getElementById("alumnos-asistencia").innerHTML=html;
+ */
+        alert(response)
+       
+      }).fail(function(response){
+          console.log(response);
+      });
+  
+}
+
+function ConsultarAlumnos(){
+  var idAlu=$("#materia").val();
+  $("#ListPresentes tr input.txtId").each(function(){});
+        $.ajax({
+      url:url5,
+      data:{"accion":"ContarAlumnos","IdAlumno":idAlu},
+      type:'POST',
+      dataType:'json'
+      }) .done(function(response){
+        /*   var total=0;
+           $.each(response, function(index,data){
+            total+=1;
+        });
+         document.getElementById("alumnos-asistencia").innerHTML=html;
+ */
+        alert(response)
+       
+      }).fail(function(response){
+          console.log(response);
+      });
+}

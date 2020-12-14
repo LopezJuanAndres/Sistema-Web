@@ -18,15 +18,39 @@ session_start();
                   return "Error: se ha generado un error al Insertar la informacion";
                }
             }
+            public function InsertarAsistencia($IdAlumno,$IdClase){
+                //  $IdProfesor=$_SESSION['IdProfesor'];
+                     $sql="INSERT INTO `asistencia` (IdAlumno,IdClase)
+                            VALUES (:miIda,:miIdc)";
+                     $conexion=new Conexion();
+                     $stmt=$conexion->prepare($sql);                     
+                     $stmt->bindValue(":miIda",$IdAlumno,PDO::PARAM_INT);
+                     $stmt->bindValue(":miIdc",$IdClase,PDO::PARAM_INT);
+                         if ( $stmt->execute()){
+                                return "OK";} 
+                           else { 
+                            return "Error: se ha generado un error al Insertar la informacion";
+                         }
+                      }
 
-         /*    public function ConsultarTodo(){
+
+           public function Clasespormaterias($IdMateria){
                 $conexion=new Conexion();
-                $stmt=$conexion->prepare("SELECT * FROM `materias`");
+                $stmt=$conexion->prepare("SELECT count(*) FROM `clases` WHERE IdMateria=:miIdm ");
+                $stmt->bindValue(":miIdm",$IdMateria,PDO::PARAM_INT);
                 $stmt->execute();
-                 return $stmt->fetchAll(PDO::FETCH_OBJ);
+                 return $stmt->fetch(PDO::FETCH_NUM);
             }
-         
-           
+            public function AlumnosporClases($IdAlumno){
+                $conexion=new Conexion();
+                $stmt=$conexion->prepare("SELECT count(*) FROM `asistencia` WHERE IdAlumno=:miIda ");
+                $stmt->bindValue(":miIda",$IdAlumno,PDO::PARAM_INT);
+                $stmt->execute();
+                 return $stmt->fetch(PDO::FETCH_NUM);
+            }
+
+          /* 
+             SELECT count(autor) FROM libros WHERE autor="Cervantes"
                 public function nombreProfesor($IdProfesor){
                     $conexion=new Conexion();
                     $stmt=$conexion->prepare( "SELECT * FROM `login` WHERE ID=:miId");

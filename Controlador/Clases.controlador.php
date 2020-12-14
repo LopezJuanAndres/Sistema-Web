@@ -10,10 +10,21 @@ include "../Modelo/Clases.modelo.php";
             $respuesta=$clase->Insertar( $Fecha,$Descripcion,$IdMateria);
             echo json_encode($respuesta);
          break;
-      /*   case "CONSULTAR":
-            echo json_encode($Materia->ConsultarTodo());
+         case " INSERTARasis":         
+            $IdAlumno=$_POST['IdAlumno'];
+            $IdClase=$_POST['IdClase'];
+            $respuesta=$clase->InsertarAsistencia($IdAlumno,$IdClase);
+            echo json_encode($respuesta);
          break;
-        case "Materias":
+         case "CONSULTARCLASES":
+           $IdMateria=$_POST['IdMateria'];
+            echo json_encode($clase->Clasespormaterias($IdMateria));
+         break;
+         case "ContarAlumnos":
+            $IdAlumno=$_POST['IdAlumno'];
+             echo json_encode($clase->AlumnosporClases($IdAlumno));
+          break;
+        /*   case "Materias":
             echo json_encode($Materia->MateriaProfesor());
          break;
          case "Profesor":
