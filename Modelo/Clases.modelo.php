@@ -48,6 +48,18 @@ session_start();
                 $stmt->execute();
                  return $stmt->fetch(PDO::FETCH_NUM);
             }
+            public function porcentaje($IdAlumno,$IdMateria){
+                $conexion=new Conexion();
+                $stmt=$conexion->prepare("SELECT count(*) FROM `asistencia` WHERE IdAlumno=:miIda ");
+                $stmt->bindValue(":miIda",$IdAlumno,PDO::PARAM_INT);
+                $stmt->execute();
+                $stmt2=$conexion->prepare("SELECT count(*) FROM `clases` WHERE IdMateria=:miIdm ");
+                $stmt2->bindValue(":miIdm",$IdMateria,PDO::PARAM_INT);
+                $stmt2->execute();
+                $total= ($stmt/ $stmt2)*100;
+                return  $total->fetch(PDO::FETCH_NUM);
+
+            }
 
           /* 
              SELECT count(autor) FROM libros WHERE autor="Cervantes"

@@ -90,9 +90,8 @@ div.news-cards {
 
  /*Alumnos */
  /* Asistencia */
-#tabla {
-  border:1px;
-  border-style: solid;
+ select .form-control {
+  
 }
 
  /*Clases */
@@ -112,6 +111,11 @@ height: 10%;
 div.jumbotron h1{
     font-size: large;
 }
+
+
+/* Asistencia */
+
+
 
 
 }
