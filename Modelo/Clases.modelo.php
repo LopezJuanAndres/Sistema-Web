@@ -34,7 +34,7 @@ session_start();
                       }
 
 
-           public function Clasespormaterias($IdMateria){
+             public function Clasespormaterias($IdMateria){
                 $conexion=new Conexion();
                 $stmt=$conexion->prepare("SELECT count(*) FROM `clases` WHERE IdMateria=:miIdm ");
                 $stmt->bindValue(":miIdm",$IdMateria,PDO::PARAM_INT);
@@ -60,16 +60,48 @@ session_start();
                 return  $total->fetch(PDO::FETCH_NUM);
 
             }
+            public function BuscarTema($Tema){
+                $IdProfesor=$_SESSION['IdProfesor'];
+                $conexion=new Conexion();
+                $stmt=$conexion->prepare("SELECT * FROM `clases`  INNER JOIN  materias ON (materias.IdProfesor=:miIdp AND clases.Descripcion=:miDes)
+                                            GROUP BY materias.IdMateria");
+                $stmt->bindValue(":miIdp",$IdProfesor,PDO::PARAM_INT);
+                $stmt->bindValue(":miDes",$Tema,PDO::PARAM_STR);
+                $stmt->execute();
+                 return $stmt->fetchAll(PDO::FETCH_OBJ);
+            }
+
+            public function ContarAlumnosPorClase($IdClase){
+                $conexion=new Conexion();
+                $stmt=$conexion->prepare("SELECT count(*) FROM `asistencia` WHERE IdClase=:miIdc ");
+                $stmt->bindValue(":miIdc",$IdClase,PDO::PARAM_INT);
+                $stmt->execute();
+                 return $stmt->fetch(PDO::FETCH_NUM);
+            }
+
+            public function clasesdelaMateria($IdMateria){
+                $conexion=new Conexion();
+                $stmt=$conexion->prepare( "SELECT * FROM `clases` WHERE IdMateria=:miId");
+                $stmt->bindValue(":miId",$IdMateria,PDO::PARAM_INT);
+                $stmt->execute();
+                return $stmt->fetchAll(PDO::FETCH_OBJ);                 
+            }
+
+            public function Mostrartodaslasclasesdelprofesor(){
+                $IdProfesor=$_SESSION['IdProfesor'];
+                $conexion=new Conexion();
+                $stmt=$conexion->prepare("SELECT * FROM `clases`  INNER JOIN  materias ON (clases.IdMateria=materias.IdMateria AND materias.IdProfesor=:miId) ");
+                $stmt->bindValue(":miId",$IdProfesor,PDO::PARAM_STR);
+                $stmt->execute();
+                 return $stmt->fetchAll(PDO::FETCH_OBJ);
+            }
+
+
+
 
           /* 
              SELECT count(autor) FROM libros WHERE autor="Cervantes"
-                public function nombreProfesor($IdProfesor){
-                    $conexion=new Conexion();
-                    $stmt=$conexion->prepare( "SELECT * FROM `login` WHERE ID=:miId");
-                    $stmt->bindValue(":miId",$IdProfesor,PDO::PARAM_INT);
-                    $stmt->execute();
-                    return $stmt->fetch(PDO::FETCH_OBJ);                 
-                }
+               
 
 
             public function MateriaProfesor(){

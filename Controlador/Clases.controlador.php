@@ -30,21 +30,26 @@ include "../Modelo/Clases.modelo.php";
             $ac=$clase->porcentaje($IdAlumno,$IdMateria);
              echo json_encode($ac);
          break;
-        /* case "Profesor":
-            $IdProfesor=$_POST['IdProfesor'];
-            echo json_encode($Materia->nombreProfesor($IdProfesor));
+         case "Buscartema":
+            $Tema=$_POST['Tema'];
+            echo json_encode($clase->BuscarTema($Tema));
          break;
-         case "CONSULTAR_ID":
-            $IdMateria=$_POST['IdMateria'];
-            $resultado=$Materia->ConsultarPorId($IdMateria);
+         case "ContarAlumnosEnClase":
+            $IdClase=$_POST['IdClase'];
+            $resultado=$clase->ContarAlumnosPorClase($IdClase);
              echo json_encode($resultado);
          break;
-         case "ELIMINAR":
+         case "mostrarpormateria":
             $IdMateria=$_POST['IdMateria'];
-            $respuesta=$Materia->Eliminar($IdMateria);
+            $respuesta=$clase->clasesdelaMateria($IdMateria);
             echo json_encode($respuesta);
          break;
-         
+         case "todaslasclases":
+            $respuesta=$clase->Mostrartodaslasclasesdelprofesor();
+            echo json_encode($respuesta);
+         break;
+
+             /*
          case "MODIFICAR":
             $Asignatura=$_POST['Asignatura'];
             $Curso=$_POST['Curso'];

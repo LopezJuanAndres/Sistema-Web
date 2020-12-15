@@ -1,5 +1,6 @@
 /*Funciones Basicas que tienen todas las paginas */
 var  url2="./../Controlador/Menu.controlador.php";
+var url="./../Controlador/Materias.controlador.php";
 function cerrarSesion(){
     $.ajax({
     url:url2,
@@ -33,7 +34,7 @@ function cargarDatosUsuario (){
 
 /* Funciones Especificas de Materias */
 
-var url="./../Controlador/Materias.controlador.php";
+
 $(document).ready(function() {
   $("#Profe").val("");
   cargarDatosUsuario ();
