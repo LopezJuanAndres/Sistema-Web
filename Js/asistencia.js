@@ -19,9 +19,8 @@ function cerrarSesion(){
 });
 } 
 /* muestra en el logo el nombre del usuario logueado */
-function cargarDatosUsuario (){
-    
-  $.ajax({
+function cargarDatosUsuario(){
+      $.ajax({
       url:url2,
       data:{"accion":"CONSULTARID"},
       type:'POST',
@@ -38,30 +37,41 @@ function cargarDatosUsuario (){
 /* evento de carga del documento */
 
 $(document).ready(function() { 
-  
-  cargarDatosUsuario ();
+  // muestra el nombre del profesor loguado
+  cargarDatosUsuario();
+  // agrega las opciones al select materias
   listaMaterias();
+   // agrega los alumnos a la tabla dependiendo de la materia seleccionada en el select
   seleccionMateria();
+  //muestra en la tabla todos los alumnos del profesor logueado
   Consultarmismaterias(); 
+  //cuando cambie de seleccion el select se actualiza la lista de alumnos
+  cambiodeMateria();  
+ 
   
-  $('#materia').on('change', function () {
-    cambiodeMateria();
-    ConsultarClases();
-   
-  });
-  $('#tablax tbody').on('change', function() {
-   
-    ConsultarAlumnos();
-  })
   
 });
 
-/* Funciones Varias */
+
+/* consult*/
  function cambiodeMateria(){
-     /*  evento de cambio del select materias*/
-      if ($('#materia').val()=='todas'){
-          Consultarmismaterias();}
- else { seleccionMateria();}                 
+    /*  evento de cambio del select materias*/
+  $("#materia").change(function(){
+    var idmat = $(this).val();
+   
+    if(idmat!="todas") { 
+           //si el select es distinto de todas entonces la tabla se llena con los de cierta materia
+      seleccionMateria();
+      ConsultarClases();  
+      //.delay(1000);   
+     contarAsistenciaPorAlumnos();
+    } else{ 
+      //sino se llena con todas las del profesor logueado
+       Consultarmismaterias();}
+
+  });
+  //$("#tablaimpr").change();
+               
  }
  /* carga las opciones en el select */
  function listaMaterias(){
@@ -78,6 +88,7 @@ $(document).ready(function() {
       html += "<option value="+ data.IdMateria + ">"+ data.Asignatura +" "+ data.Division +"</option>";
   });
   document.getElementById("materia").innerHTML=html;
+  
   }).fail(function(response){
    console.log(response)
   });
@@ -111,6 +122,7 @@ function  Consultarmismaterias(){
 /* muestra en la tabla todos los alumnos de la materia seleccionada */
 function seleccionMateria(){
     var IdMateria=$("#materia").val();
+   
     $.ajax({
         url:url4,
         data:{"accion":"CONSULTAR_IDMat","IdMateria":IdMateria},
@@ -130,22 +142,23 @@ function seleccionMateria(){
       html += "<input type='checkbox' class='check' name='check' id='check' value="+ data.IdAlumno +" onclick='ConsultarPorId("+data.IdAlumno+")' >";
       html += "</td>";
       html += "</tr>";
-      html2 += "<tr class='btn-outline-info'>"; 
+      html2 += "<tr class='fila'>"; 
       html2 += "<td>" + data.Documento +"</td>";
       html2 += "<td>" + data.Nombre +"</td>";
       html2 += "<td>" + data.Apellido +"</td>";
-      html2 += "<td id='cpre' class='cpre'><span class='badge' id='cpre' >"+ data.IdAlumno +"</span></td>";
-       html2 += "<td id='Pasis' class='Pasis'></td>";
+      html2 += "<td id='cpre' name='cpre' class='cpre'> <input type='hidden' class='cpre' id='cpre' value="+ data.IdAlumno +"> asist.PorAlum. </input></td>";
+       html2 += "<td id='Pasis' class='Pasis'> %Asistencia Por alumno</td>";
       html2 += "</tr>";     
     });
     document.getElementById("alumnos-asistencia").innerHTML=html;
-    document.getElementById("tablaimpr").innerHTML+=html2;
+    document.getElementById("tablaimpr").innerHTML=html2;
    
     }) .fail(function(response){
      console.log(response)
     });
     //$('#tablaimpr').change();
-    ConsultarAlumnos();
+    //cuenta la asistencia que tiene cada alumno y la vuelca en la tabla cuando cambia
+    
 }
 
 /* carga los alumnos tildados en la tabla del modal */
@@ -240,46 +253,62 @@ function insertarlista(){
   var IdMateria=$("#materia").val();
   //alert(fecha+tema+IdMateria);
   insertClases(fecha,tema,IdMateria) ;
+  cambiodeMateria();
   
 }
 //cuenta todas las clases registradas para cada materia
 function ConsultarClases(){
-  var idmat=$("#materia").val();
-  $("#tablaimpr td.cpre").each(function(){
-    var IdAlumno=$(this).text();
+     var idmat=$("#materia").val();
        $.ajax({
       url:url5,
-      data:{"accion":"Porcentaje","IdAlumno":IdAlumno,"IdMateria":idmat},
+      data:{"accion":"CONSULTARCLASES","IdMateria":idmat},
       type:'POST',
       dataType:'json'
       }).done(function(response){
-        alert( response);      
-             
+           
+             document.getElementById("nclass").innerHTML=response;
       }).fail(function(response){
           console.log(response);
-      });
+    
     });
 }
 //cuenta la cantidad de asistencias registradas de un alumno especifico
-function ConsultarAlumnos(){  
-  alert("comenzo la funcion contar");
-  $("#tablaimpr td.cpre").each(function(){
-    var idAlu= $(this).text();
-     var col= $(this);      
-    $.ajax({
-    url:url5,
-    data:{"accion":"ContarAlumnos","IdAlumno":idAlu},
-    type:'POST',
-    dataType:'json'
-    }) .done(function(response){
-      var html=response
-        col.html(html);     
-    }).fail(function(response){
-        console.log(response);
-    });    
-  });
+function contarAsistenciaPorAlumnos(){
+  alert("En pantalla podras ver dos tablas que tienen los datos correspondiente a la materia que seleccionaste")
+  $("#tablaimpr tr").each(function(){
+    var idAlu= $(this).find("input.cpre").val();
+     var fila=$(this).find("td.cpre"); 
+     var col=$(this).find("td.Pasis");
+     var cla=$("#nclass").text();
+    var porc=100;
+  $.ajax({
+  url:url5,
+  data:{"accion":"ContarAlumnos","IdAlumno":idAlu},
+  type:'POST',
+  dataType:'json'
+  }) .done(function(response){
+     // var html ="";
+     // html="<tr><td><input type='text' id='inaux' value="+response+"> </td></tr>";
+    // document.getElementById("tablaimpr").innerHTML+= html;
+    fila.text(response);
+    total=(response*porc)/cla;
+    col.text(total +" %")
+  }).fail(function(response){
+      console.log(response);
+  });    
+});
   
-    /*$("#tablaimpr tr td.Tcla").each(function(){});
-  $("#tablaimpr tr td.Pasis").each(function(){});
-      */
+  
 }
+function ejecutar(){
+ 
+}
+/*function cambioentablaimpr(){
+  
+  $("#tablaimpr").change(function(){
+    
+      alert("hubo un cambio en la tabla");
+      contarAsistenciaPorAlumnos();
+  
+  }); 
+}*/

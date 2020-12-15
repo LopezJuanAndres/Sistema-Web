@@ -38,7 +38,7 @@ function cargarDatosUsuario (){
 $(document).ready(function() {
   $("#Profe").val("");
   cargarDatosUsuario ();
-  if($("#Profe").val("Administrador")){
+  if($("#Profe").val()=="Administrador"){
     alert("Como Administrador Puedes ver todas las materias registradas en el sistema y su respectivo Profesor")
     Consultar();
   } else{

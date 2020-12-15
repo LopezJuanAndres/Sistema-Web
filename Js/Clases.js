@@ -9,6 +9,11 @@ $(document).ready(function() {
     listaMaterias();
     todaslasclasesdelprofesor();
     todaslasclasesdelamateria();
+    $("#Clases").change(function(){
+      //setTimeout(contaralumnosporclases(),4000);
+      contaralumnosporclases().delay(4000);
+    })
+    
     
   });
 
@@ -90,31 +95,6 @@ function listaMaterias(){
     $("#Clases").change();
   }
 
-//cuenta los alumnos que asistieron a esa clase
-  function contaralumnosporclases(){
-    $("#Clases").change(function(){
-        $("#Clases td.npre").each(function(){
-            var idalum= $(this).find("input.nAlum").text();
-            alert(idalum);
-          });
-    });
-     
-   /* $.ajax({
-        url:url3,
-        data:{"accion":"ContarAlumnosEnClase","IdClase":IdClase},
-        type:'POST',
-        dataType:'json'
-    }).done(function(response){
-     var html="";
-     html+="<td> <input class='nAlum' type=''hidden value="+ response+"></td>" ;
-        document.getElementById("Clases").innerHTML=html;
-    
-    }).fail(function(response){
-     console.log(response)
-    }); */
-
-  }
-
 //mostrar todas las clases que tiene el profesor loguiado
 function todaslasclasesdelprofesor(){
     $.ajax({
@@ -128,7 +108,7 @@ function todaslasclasesdelprofesor(){
         html +="<tr>"
         html += "<td>"+data.Fecha +"</td>" ;
         html += "<td>"+data.Descripcion+"</td>" ;
-        html += "<td class='npre'><input class='nAlum' type=''hidden value="+ data.IdClase+"></td>" ;
+        html += "<td class='npre'><input class='nAlum' type='hidden' value="+ data.IdClase+"></td>" ;
         html += "<td></td>" ;
         html +="</tr>"
     });
@@ -136,6 +116,7 @@ function todaslasclasesdelprofesor(){
     }).fail(function(response){
      console.log(response)
     });
+    $("#Clases").change();
 }
 //muestra todas las clases de la materia seleccionada en el select
 function todaslasclasesdelamateria(){
@@ -148,12 +129,14 @@ function todaslasclasesdelamateria(){
         type:'POST',
         dataType:'json'
     }).done(function(response){
-    var html="";    
+    var html=""; 
+    var nalumnos=0;   
     $.each(response, function(index,data){
+    
         html +="<tr>"
         html += "<td>"+data.Fecha +"</td>" ;
         html += "<td>"+data.Descripcion+"</td>" ;
-        html += "<td class='npre'><input class='nAlum' type=''hidden value="+ data.IdClase+"></td>" ;
+        html += "<td class='npre'><input class='nAlum' type='hidden' value="+ data.IdClase+">"+nalumnos+"</td>" ;
         html += "<td></td>" ;
         html +="</tr>"
     });
@@ -168,28 +151,49 @@ function todaslasclasesdelamateria(){
     });
 }
 
-/* Muestra todas las asignaturas y cursos en la tabla exclusivos del docente loguiado 
-function listaMaterias(){
-    $.ajax({
-      url:url,
-      data:{"accion":"Materias"},
-      type:'POST',
-      dataType:'json'
-  }).done(function(response){
-   var html="";
-  $.each(response,function(index,data){
-      html += "<tr class='btn-outline-info'>"; 
-      html += "<td>" + data.Asignatura +"</td>";
-      html += "<td>" + data.Division +"</td>";
-      html += "<td>";
-      html += "<button class='btn btn-outline-warning mr-1 btn-modificar' id='btn-modificar' onclick='ConsultarPorId("+ data.IdMateria+")' data-toggle='modal' data-target='#modalMateria'> <span class='fa fa-edit'></span>Editar</button>";
-      html += "<button class='btn btn-outline-danger' id='boton-eliminar' onclick='EliminarMateria("+ data.IdMateria+")'><span class='fa fa-trash'></span>Borrar</button>";
-      html += "</td>";
-      html += "</tr>";
-  });
-  document.getElementById("materias").innerHTML=html;
-    }).fail(function(response){
-   console.log(response)
-  });
-  }*/
+function contarclasesporasistencia(IdClase,fila){
+ 
+  $.ajax({
+    url:url3,
+    data:{"accion":"clasesenAsistencia","IdClase":IdClase},
+    type:'POST',
+    dataType:'json'
+}).done(function(response){
+  fila.find("td.npre").text(response);
+  
+}).fail(function(response){
+ console.log(response)
+});
+}
 
+//cuenta los alumnos que asistieron a esa clase
+function contaralumnosporclases(){
+  alert("al seleccionar la materia puede ver todas las clases que se dictaron");
+  $("#Clases tr").each(function(){
+      var idalum= $(this).find("input.nAlum").val();
+      var fila=$(this);
+      contarclasesporasistencia(idalum,fila);
+    });   
+
+
+}
+ /*
+function cambiodeMateria(){
+   evento de cambio del select materias
+$("#materia").change(function(){
+  var idmat = $(this).val();
+ 
+  if(idmat!="todas") { 
+         //si el select es distinto de todas entonces la tabla se llena con los de cierta materia
+    seleccionMateria();
+    ConsultarClases();  
+    //.delay(1000);   
+   contarAsistenciaPorAlumnos();
+  } else{ 
+    //sino se llena con todas las del profesor logueado
+     Consultarmismaterias();}
+
+});
+//$("#tablaimpr").change();
+             
+}*/

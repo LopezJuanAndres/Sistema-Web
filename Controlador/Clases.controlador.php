@@ -24,12 +24,7 @@ include "../Modelo/Clases.modelo.php";
             $IdAlumno=$_POST['IdAlumno'];
              echo json_encode($clase->AlumnosporClases($IdAlumno));
           break;
-         case "Porcentaje":
-            $IdAlumno=$_POST['IdAlumno'];
-            $IdMateria=$_POST['IdMateria'];
-            $ac=$clase->porcentaje($IdAlumno,$IdMateria);
-             echo json_encode($ac);
-         break;
+        
          case "Buscartema":
             $Tema=$_POST['Tema'];
             echo json_encode($clase->BuscarTema($Tema));
@@ -46,6 +41,11 @@ include "../Modelo/Clases.modelo.php";
          break;
          case "todaslasclases":
             $respuesta=$clase->Mostrartodaslasclasesdelprofesor();
+            echo json_encode($respuesta);
+         break;
+         case "clasesenAsistencia":
+            $IdClase=$_POST['IdClase'];
+            $respuesta=$clase->ClasesporAsistencia($IdClase);
             echo json_encode($respuesta);
          break;
 
